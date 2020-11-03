@@ -1,119 +1,47 @@
-import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Card, Container, Navbar } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
+import logo from "../../asset/img/logo.png";
 import config from "../../config/config.json";
-import Popup from "../Popup/Popup";
-import BoardForm from "./BoardForm/BoardForm";
-
-import "./css/HomePage.css";
+import { Link } from "react-router-dom";
+import Axios from "axios";
 
 function HomePage(props) {
-  const [board, setBoard] = useState([]);
-  const [popup, setPopup] = useState({});
-  const [showPopup, setShowPopup] = useState(false);
-  const [newBoardName, setNewBoardName] = useState("");
-  //Axios.defaults.withCredentials = true;
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    Axios.get(`${config.dev.path}/board`).then((res) => {
-      if (res.data.code === 0) setBoard(res.data.data.boards);
-    });
-  }, []);
+    Axios.get(`${config.dev.path}`)
+      .then((res) => {
+        if (res.data.code !== 0)
+          window.location.href = `${window.location.origin}/login?redirect_url=${window.location.href}`;
+        else setLoading(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        window.location.href = `${window.location.origin}/login?redirect_url=${window.location.href}`;
+      });
+  },[]);
 
-  const showInputBoardPopup=()=>{
-    setPopup({
-      title: "Add board",
-      actionName: "Add",
-      action: () => {
-        addBoard(newBoardName);
-        setShowPopup(false);
-      },
-      content: (
-        <BoardForm
-          props={{
-            newBoardName,
-            setNewBoardName,
-          }}
-        />
-      ),
-      show: showPopup,
-      hidePopup: () => setShowPopup(false),
-    });
-    setShowPopup(true);
-  }
-
-  useEffect(() => {
-    setPopup({
-      title: "Add board",
-      actionName: "Add",
-      action: () => {
-        addBoard(newBoardName);
-        setNewBoardName("");
-        setShowPopup(false);
-      },
-      content: (
-        <BoardForm
-          props={{
-            newBoardName,
-            setNewBoardName,
-          }}
-        />
-      ),
-      show: showPopup,
-      hidePopup: () => setShowPopup(false),
-    });
-  }, [newBoardName]);
-  useEffect(()=>{
-    setPopup({...popup,show:showPopup})
-  },[showPopup])
-
-  const addBoard = (name) => {
-    Axios.post(`${config.dev.path}/board`, { name }).then((res) => {
-      if (res.data.code === 0) {
-        console.log(res.data);
-        setPopup({
-          title: "Add board success",
-          actionName: "OK",
-          action: () => setShowPopup(false),
-          content: (
-            <>
-              Add board successfull{" "}
-              <i class="fa fa-check-circle" aria-hidden="true"></i>
-            </>
-          ),
-          show: showPopup,
-          hidePopup: () => setShowPopup(false),
-        });
-        setShowPopup(true);
-        setBoard([...board,{name}]);
-      }
+  const onLogout = () => {
+    Axios.post(`${config.dev.path}/logout`).finally(() => {
+      window.location.href = `${window.location.origin}/login`;
     });
   };
-
-  const showListBoard = (board) => {
-    return board.map((item, key) => (
-      <Card className="board" key={key}>
-        {item.name}
-      </Card>
-    ));
-  };
-  return (
+  return loading ? (
     <div>
-      <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="/">
-          <i className="fa fa-trello text-primary" aria-hidden="true"></i>{" "}
-          <img className="title" src="/img/logo.png"></img>
-        </Navbar.Brand>
+      <Navbar className="nav-bar">
+        <Link to="/" className="logo d-flex">
+          <i className="fa fa-trello icon"></i>{" "}
+          <img className="title" src={logo} alt="logo"></img>
+        </Link>
+        <div className="right-nav">
+          <button className="top-button " onClick={onLogout}>
+            <i className="fa fa-sign-out"></i>
+          </button>
+        </div>
       </Navbar>
-      <div className="fill">
-        <Container className="main-container">
-          {showListBoard(board)}
-          <Card className="board" onClick={showInputBoardPopup}>
-            <i className="fa fa-plus-circle fa-3x" aria-hidden="true"></i>
-          </Card>
-        </Container>
-      </div>
-      <Popup props={popup} />
+      {props.children}
     </div>
+  ) : (
+    <div></div>
   );
 }
 

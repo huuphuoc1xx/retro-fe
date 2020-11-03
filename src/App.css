@@ -1,2 +1,66 @@
 @import url(https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
 @import url(https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css);
+
+body{
+  background-color: #f9fafc;
+}
+.main-container {
+  right: 0px;
+  height: fit-content;
+  width: -webkit-fill-available;
+  display: flex;
+  flex-wrap: wrap;
+}
+.fill {
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+}
+.right-center {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.nav-bar {
+  background-color: #026aa7;
+}
+.icon {
+  color: white;
+  margin:auto;
+  font-size: 1.2em;
+}
+
+.logo {
+  opacity: 0.5;
+}
+
+.logo:hover {
+  opacity: 0.75;
+}
+
+.top-button {
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 0;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  background-color: hsla(0, 0%, 100%, 0.3);
+  box-shadow: none;
+  color: #fff;
+  display: flex;
+  font-weight: 700;
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  margin: 0 4px 0 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.right-nav{
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 100%;
+  justify-content: flex-end;
+}

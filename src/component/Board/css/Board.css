@@ -1,0 +1,42 @@
+.board {
+  position: relative;
+  width: 10rem;
+  height: 5rem;
+  justify-content: center;
+  text-align: center;
+  font-weight: bolder;
+  color: white;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),
+    url("../../../asset/img/board-bg.jpg");
+  background-size: cover;
+  margin: 5px;
+}
+
+.top-right {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.add-board {
+  background-image: unset !important;
+  background-color: rgb(2, 106, 167, 0.7) !important;
+  transition-duration: 0.5s;
+}
+
+.add-board:hover {
+  background-color: rgb(2, 106, 167) !important;
+}
+.title {
+  font-family: "Arial-Black", sans-serif;
+  display: inline;
+}
+
+.sidebar {
+  left: 0;
+  margin-top: 5px;
+  min-height: 100vh;
+  width: 230px;
+  background-color: #343a40 !important;
+}
+
