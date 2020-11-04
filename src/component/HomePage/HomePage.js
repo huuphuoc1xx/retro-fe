@@ -36,6 +36,9 @@ function HomePage(props) {
           <button className="top-button " onClick={onLogout}>
             <i className="fa fa-sign-out"></i>
           </button>
+          <Link to="/profile" className="profile-btn">
+            <i className="fa fa-user"></i>
+          </Link>
         </div>
       </Navbar>
       {props.children}

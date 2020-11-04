@@ -13,8 +13,11 @@ function Card(props) {
   useEffect(() => {
     Axios.get(`${config.dev.path}/card/${boardId}`).then((res) => {
       if (res.data.code === 0) setData(res.data.data.cards);
-      if (res.data.code === 4) {
+      else if (res.data.code === 4) {
         alert("You dont have permission to access this board!");
+        setRedirect(<Redirect to="/" />);
+      } else {
+        alert(res.data.data.message);
         setRedirect(<Redirect to="/" />);
       }
     });

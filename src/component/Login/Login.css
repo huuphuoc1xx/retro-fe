@@ -33,10 +33,9 @@
   text-align: center;
 }
 
-.login-btn {
+.blue-btn {
   width: 100%;
-  margin-top: 1.5rem;
-  background: #5aac44;
+  background: #026aa7;
   color: #fff;
   border-radius: 0.3em;
   display: inline-block;
@@ -45,4 +44,21 @@
   position: relative;
   text-decoration: none;
   border: 0px;
+}
+
+.login-btn-container{
+  margin-top: 1.5rem;
+}
+
+.tag{
+  color:#5e6c84 !important;
+}
+
+.tag:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.active{
+  color:rgb(255,99,71) !important;
 }

@@ -103,8 +103,7 @@ function Board() {
   return (
     <HomePage>
       <div className="fill d-flex">
-        <div className="sidebar"></div>
-        <div className="main-container">
+        <div className="main-container main-board">
           {showListBoard(board)}
           <Card className="board add-board" onClick={showAddBoardPopup}>
             <i className="fa fa-plus-circle fa-3x" aria-hidden="true"></i>

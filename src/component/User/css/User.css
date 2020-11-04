@@ -1,0 +1,24 @@
+
+.profile {
+  padding: 50px;
+  width: 600px;
+  min-width: 400px;
+  background-color: white;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+hr {
+  margin-top: 0;
+}
+
+.profile-label {
+  color: #172b4d;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.003em;
+  line-height: 16px;
+  margin-top: 16px;
+  margin-top: 0;
+  padding-top: 5px;
+}

@@ -1,8 +1,9 @@
 @import url(https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
 @import url(https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css);
 
-body{
-  background-color: #f9fafc;
+body {
+  background: url(./asset/img/background.jpg) no-repeat fixed center;
+  background-size: cover;
 }
 .main-container {
   right: 0px;
@@ -11,6 +12,7 @@ body{
   display: flex;
   flex-wrap: wrap;
 }
+
 .fill {
   width: -webkit-fill-available;
   height: -webkit-fill-available;
@@ -26,7 +28,7 @@ body{
 }
 .icon {
   color: white;
-  margin:auto;
+  margin: auto;
   font-size: 1.2em;
 }
 
@@ -58,7 +60,34 @@ body{
   white-space: nowrap;
 }
 
-.right-nav{
+.top-button:hover,.profile-btn:hover{
+  opacity: 0.8;
+}
+
+.profile-btn {
+  align-items: center;
+  background-color: #dfe1e6;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 0;
+  border-radius: 100%;
+  box-sizing: border-box;
+  color: #172b4d;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 32px;
+  opacity: 1;
+  height: 32px;
+  width: 32px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+
+.right-nav {
   display: flex;
   flex-grow: 1;
   flex-basis: 100%;
