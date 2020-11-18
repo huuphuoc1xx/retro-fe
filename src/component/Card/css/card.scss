@@ -53,4 +53,17 @@
 
 .edit{
   cursor: text;
+  overflow: auto;
+  white-space: normal;
+}
+
+.line{
+  width: 100%;
+  height: 0px;
+  top:4;
+  right:4;
+  border-bottom: 2px solid white;
+  -webkit-transform:
+      rotate(135deg); 
+  position: absolute;
 }

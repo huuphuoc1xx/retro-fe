@@ -7,7 +7,7 @@ import "../css/card.scss";
 import { Button } from "react-bootstrap";
 
 function CardColumn(props) {
-  const { name, data, setData, boardId } = props;
+  const { name, data, setData, boardId, ws } = props;
   const [popup, setPopup] = useState(false);
 
   const onDragOver = (ev) => {
@@ -19,20 +19,26 @@ function CardColumn(props) {
   };
 
   const onDrop = (ev, cat) => {
-    const id = ev.dataTransfer.getData("id");
+    const index = ev.dataTransfer.getData("id");
     const temp = [...data];
-    for (let index = 0; index < temp.length; index++) {
-      if (temp[index].id == id) {
-        temp[index].type = cat;
-        setData(temp);
-        Axios.put(`${config.dev.path}/card/${boardId}`, temp[index]).then(
-          (res) => {
-            if (res.data.code !== 0) window.location.reload();
-          }
-        );
-        break;
-      }
-    }
+    temp[index].type = cat;
+    setData(temp);
+    Axios.put(`${config.dev.path}/card/${boardId}`, temp[index])
+      .then((res) => {
+        if (res.data.code !== 0) window.location.reload();
+        else {
+          ws.send(
+            JSON.stringify({
+              event: "change-card",
+              boardId,
+              data: res.data.data,
+            })
+          );
+        }
+      })
+      .catch((err) => {
+        window.location.reload();
+      });
   };
 
   const showAddCardPopup = () => {
@@ -40,6 +46,7 @@ function CardColumn(props) {
       title: `Add ${name} task`,
       content: (
         <CardForm
+          ws={ws}
           action="add"
           data={data}
           setData={setData}
@@ -57,6 +64,7 @@ function CardColumn(props) {
       title: `Edit ${name} task`,
       content: (
         <CardForm
+          ws={ws}
           action="edit"
           data={data}
           setData={setData}
@@ -73,7 +81,16 @@ function CardColumn(props) {
   const deleteCard = (id) => {
     Axios.delete(`${config.dev.path}/card/${boardId}`, { data: { id } }).then(
       (res) => {
-        if (res.data.code === 0) setData(data.filter((item) => item.id != id));
+        if (res.data.code === 0) {
+          setData(data.filter((item) => item.id != id));
+          ws.send(
+            JSON.stringify({
+              event: "delete-card",
+              boardId,
+              cardId: id,
+            })
+          );
+        }
       }
     );
   };
@@ -120,7 +137,7 @@ function CardColumn(props) {
               className="item-container"
               key={key}
               draggable
-              onDragStart={(e) => onDragStart(e, item.id)}
+              onDragStart={(e) => onDragStart(e, key)}
             >
               <div className="edit" onClick={() => showEditCardPopup(item)}>
                 {item.content}

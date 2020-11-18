@@ -12,6 +12,9 @@
   margin: 5px;
 }
 
+.board:hover{
+  color: rgba(255,255,255,0.7);
+}
 .top-right {
   position: absolute;
   top: 5px;

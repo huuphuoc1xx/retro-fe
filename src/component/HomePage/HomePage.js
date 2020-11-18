@@ -18,13 +18,14 @@ function HomePage(props) {
         console.log(err);
         window.location.href = `${window.location.origin}/login?redirect_url=${window.location.href}`;
       });
-  },[]);
+  }, []);
 
   const onLogout = () => {
     Axios.post(`${config.dev.path}/logout`).finally(() => {
       window.location.href = `${window.location.origin}/login`;
     });
   };
+
   return loading ? (
     <div>
       <Navbar className="nav-bar">
@@ -33,12 +34,13 @@ function HomePage(props) {
           <img className="title" src={logo} alt="logo"></img>
         </Link>
         <div className="right-nav">
-          <button className="top-button " onClick={onLogout}>
-            <i className="fa fa-sign-out"></i>
-          </button>
-          <Link to="/profile" className="profile-btn">
+          {props.topButton}
+          <Link to="/profile" className="top-button">
             <i className="fa fa-user"></i>
           </Link>
+          <button className="top-circle-btn" onClick={onLogout}>
+            <i className="fa fa-sign-out"></i>
+          </button>
         </div>
       </Navbar>
       {props.children}

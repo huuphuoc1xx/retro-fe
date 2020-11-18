@@ -1,5 +1,6 @@
 {
     "dev":{
-        "path":"https://retro-be.herokuapp.com"
+        "path":"https://retro-be.herokuapp.com",
+        "socket":"wss://retro-be.herokuapp.com"
     }
 }

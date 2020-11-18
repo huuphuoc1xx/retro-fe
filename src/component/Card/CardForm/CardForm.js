@@ -5,7 +5,7 @@ import { Form } from "react-bootstrap";
 
 function CardForm(props) {
     console.log(props)
-  const { action, data, setData, hidePopup, item, type, boardId } = props;
+  const { action, data, setData, hidePopup, item, type, boardId,ws } = props;
   const [content, setContent] = useState(item ? item.content : "");
   const SubmitForm = () => {
     if (action === "add") {
@@ -13,6 +13,13 @@ function CardForm(props) {
         (res) => {
           if (res.data.code === 0) {
             setData([...data, res.data.data]);
+            ws.send(
+              JSON.stringify({
+                event: "add-card",
+                boardId,
+                data: res.data.data,
+              })
+            );
           }
         }
       );
@@ -29,6 +36,13 @@ function CardForm(props) {
               if (e.id === item.id) e.content = content;
             });
             setData(temp);
+            ws.send(
+              JSON.stringify({
+                event: "change-card",
+                boardId,
+                data: res.data.data,
+              })
+            );
           }
         }
       });
